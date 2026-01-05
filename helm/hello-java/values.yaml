@@ -1,5 +1,5 @@
 image:
   repository: your-docker-repo/hello-java
-  tag: latest
+  tag: local
 
 replicaCount: 1
