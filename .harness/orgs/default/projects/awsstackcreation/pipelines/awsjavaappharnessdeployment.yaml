@@ -29,6 +29,10 @@ pipeline:
               namespace: k8s-java-app
               automountServiceAccountToken: true
               nodeSelector: {}
+              containerSecurityContext:
+                capabilities:
+                  add:
+                    - ""
               os: Linux
           execution:
             steps:
@@ -39,6 +43,7 @@ pipeline:
                   spec:
                     repoName: account.harness-filestore
                     build:
-                      type: branch
+                      type: tag
                       spec:
-                        branch: main
+                        tag: "0.1"
+                  description: execution the build stage
