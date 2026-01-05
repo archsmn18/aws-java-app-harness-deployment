@@ -1,0 +1,44 @@
+pipeline:
+  name: aws-java-app-harness-deployment
+  identifier: awsjavaappharnessdeployment
+  projectIdentifier: awsstackcreation
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        repoName: account.harness-filestore
+        build: <+input>
+  stages:
+    - stage:
+        name: Build
+        identifier: Build
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          caching:
+            enabled: true
+            override: true
+          buildIntelligence:
+            enabled: true
+          infrastructure:
+            type: KubernetesDirect
+            spec:
+              connectorRef: k8sjavaapp
+              namespace: k8s-java-app
+              automountServiceAccountToken: true
+              nodeSelector: {}
+              os: Linux
+          execution:
+            steps:
+              - step:
+                  type: GitClone
+                  name: GitClone_1
+                  identifier: GitClone_1
+                  spec:
+                    repoName: account.harness-filestore
+                    build:
+                      type: branch
+                      spec:
+                        branch: main
