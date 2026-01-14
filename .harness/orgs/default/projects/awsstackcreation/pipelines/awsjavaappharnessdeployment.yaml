@@ -23,17 +23,13 @@ pipeline:
           buildIntelligence:
             enabled: true
           infrastructure:
-            type: KubernetesDirect
+            type: VM
             spec:
-              connectorRef: k8sjavaapp
-              namespace: k8s-java-app
-              automountServiceAccountToken: true
-              nodeSelector: {}
-              containerSecurityContext:
-                capabilities:
-                  add:
-                    - ""
-              os: Linux
+              type: Pool
+              spec:
+                poolName: Linux
+                harnessImageConnectorRef: javak8sdockerhub
+                os: Linux
           execution:
             steps:
               - step:
